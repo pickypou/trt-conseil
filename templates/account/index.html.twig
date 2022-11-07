@@ -8,7 +8,7 @@
 {% endblock %}
 <p class="text-center">Bienvenue {{app.user.firstname}} sur votre compte<br/> ici vous allez pouvoir mettre vos informations à jour, consulter les annonce d'emplois</p>
 <p class="text-center mt-5">
-<a href="#" class="ms-5">-changer mon mot de passe</a>
+<a href="{{path('app_change_password')}}" class="ms-5">-changer mon mot de passe</a>
 <a href="#" class="ms-5">-deposer mon cv</a>
 <a href="#" class="ms-5">-voir les annonces</a>
 </p>
