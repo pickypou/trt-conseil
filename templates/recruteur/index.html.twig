@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}trt-mise-a-jour-recruteur{% endblock %}
+
+{% block body %}
+{% block pagetitle %}
+<h1 class="mt-5 mb-3 font-weight-normal text-center">{{app.user.firstname}} renseigner vos information</h1> 
+   <p> </p>
+{% endblock %}
+<div class="container col-5">
+{{form(form)}}
+</div>
+{% endblock %}

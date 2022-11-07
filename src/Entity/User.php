@@ -37,6 +37,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $cv = null;
 
+    #[ORM\OneToOne(mappedBy: 'recruteur', cascade: ['persist', 'remove'])]
+    private ?Recruteurs $recruteurs = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -139,6 +142,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCv(?string $cv): self
     {
         $this->cv = $cv;
+
+        return $this;
+    }
+
+    public function getRecruteurs(): ?Recruteurs
+    {
+        return $this->recruteurs;
+    }
+
+    public function setRecruteurs(?Recruteurs $recruteurs): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($recruteurs === null && $this->recruteurs !== null) {
+            $this->recruteurs->setRecruteur(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($recruteurs !== null && $recruteurs->getRecruteur() !== $this) {
+            $recruteurs->setRecruteur($this);
+        }
+
+        $this->recruteurs = $recruteurs;
 
         return $this;
     }
