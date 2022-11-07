@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}trt-mon-compte{% endblock %}
+
+{% block body %}
+{% block pagetitle %}
+    <h1 class="mt-5 mb-3 font-weight-normal text-center">Je dépose mon cv</h1> 
+{% endblock %}
+<p class="text-center">Bienvenue {{app.user.firstname}} ici vous pouvez déposer votre CV</p>
+
+<div class="container col-5">
+{{form(form)}}
+</div>
+
+
+
+
+{% endblock %}
