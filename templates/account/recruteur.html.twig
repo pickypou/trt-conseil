@@ -7,10 +7,10 @@
     <h1 class="mt-5 mb-3 font-weight-normal text-center">Mon compte</h1> 
 {% endblock %}
 <p class="text-center">Bienvenue {{app.user.firstname}} sur votre compte<br/> ici vous allez pouvoir mettre vos information à jour, consulter les annonce d'emplois</p>
-
-<a href="{{path('app_change_password')}}">-changer mon mot de passe</a><br>
-<a href="{{path('app_recruteur')}}">-mettre mes information à jour</a><br>
--deposer une annonce<br>
-
+<p class="text-center mt-5">
+<a href="{{path('app_change_password')}}" class="">-changer mon mot de passe</a>
+<a href="{{path('app_recruteur')}}" class="ms-5">-mettre mes information à jour</a>
+<a href="{{path('app_annonces')}}" class="ms-5">-deposer une annonce </a>
+</p>
 
 {% endblock %}
