@@ -2,15 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Annonces;
 use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-#[Route('/admin')]
+#[Route('/admin'),IsGranted('ROLE_ADMIN')]
 class AdminController extends AbstractController
 {
     //list users
@@ -68,6 +70,19 @@ class AdminController extends AbstractController
 
 
         return $this->redirectToRoute('app_list_user');
+    }
+
+    //list annonce
+    #[Route('/annonces', name: 'app_annonce_all')]
+
+    public function annoncesAlls(ManagerRegistry $doctrine): Response
+    {
+        $repository = $doctrine->getRepository(Annonces::class);
+        $annonces = $repository->findAll();
+
+        return $this->render('admin/listAnnonces.html.twig', [
+            'annonces' => $annonces
+        ]);
     }
 
 

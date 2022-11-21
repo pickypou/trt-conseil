@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% block title %}trt-list-utilisateurs{% endblock %}
+{% block body %}
+    {% block pagetitle %}<h1 class="mt-5 mb-3 font-weight-normal text-center">Liste des annonces</h1>{% endblock %}
+    <div class="row">
+        {% for annonce in annonces %}
+            <div class="card ms-5 mb-3" style="width: 18rem;">
+                <ul class="list-groupe list-group-flush ">
+                    <h5 class="crad-subtitle list-group-item text-center">{{ annonce.job }}</h5>
+                    <li class="list-group-item ">
+                        {{ annonce.content }}
+                    </li>
+                    <li class="list-group-item">
+                      salaire proposer net:<br> {{ annonce.salaire }} €
+                    </li>
+                    
+                    
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+    {% endblock %}
