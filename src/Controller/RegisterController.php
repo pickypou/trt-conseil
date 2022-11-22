@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Classe\Mail;
 use App\Entity\User;
 use App\Form\RegisterType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,22 +22,40 @@ class RegisterController extends AbstractController
     #[Route('/register', name: 'app_register')]
     public function index(Request $request, UserPasswordHasherInterface $paswwordHasher): Response
     {
+        $notification = null;
         $user = new User();
        $form = $this->createForm(RegisterType::class, $user);
        $form->remove('roles');
        $form->handleRequest($request);
        if ($form->isSubmitted() && $form->isValid()) {
         $user = $form->getData();
-        $password = $paswwordHasher->hashPassword($user, $user->getPassword());
+            $search_email = $this->entityManager->getRepository(User::class)->findOneByEmail($user->getEmail());
+
+        if (!$search_email) {
+            $password = $paswwordHasher->hashPassword($user, $user->getPassword());
 
         $user->setPassword($password);
         $this->entityManager->persist($user);
         $this->entityManager->flush();
-        return $this->redirectToRoute('app_home');
+
+        $mail = new Mail();
+        $content = "Bonjour"
+         .$user->getfirstname().
+         "TRT-Conseil vous permet une recherche d'emplois la mise en reletion avec des chef d'entrprise serrieuse
+         n'oublier pas de finir la mise a jour de votre profile en déposent votre cv";
+        $mail->send($user->getEmail(), $user->getFirstname(), 'Bienvenue sur TRT-CONSEIL', $content );
+         $notification = "Votre inscription s est correctement déroulée. Vous pouvez dès à present accerder à votre compte";
+        }else {
+            $notification = "L emal que vous avait renseigner existe déjà.";
+        }
+
+       
        }
+    
 
         return $this->render('register/index.html.twig', [
-            'form'=>$form->createView()
+            'form'=>$form->createView(),
+            'notification'=>$notification
         ]);
     }
 }
