@@ -39,14 +39,16 @@ class RegisterController extends AbstractController
         $this->entityManager->flush();
 
         $mail = new Mail();
+
         $content = "Bonjour"
          .$user->getfirstname().
          "TRT-Conseil vous permet une recherche d'emplois la mise en reletion avec des chef d'entrprise serrieuse
          n'oublier pas de finir la mise a jour de votre profile en déposent votre cv";
+
         $mail->send($user->getEmail(), $user->getFirstname(), 'Bienvenue sur TRT-CONSEIL', $content );
          $notification = "Votre inscription s est correctement déroulée. Vous pouvez dès à present accerder à votre compte";
         }else {
-            $notification = "L emal que vous avait renseigner existe déjà.";
+            $notification = "L email que vous avait renseigner existe déjà.";
         }
 
        

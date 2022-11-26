@@ -8,10 +8,10 @@
 {% endblock %}
 <p class="text-center">Bienvenue {{app.user.firstname}} de cette page vous allez pouvoir géré vos utilisateurs</p>
 <p class="text-center">
+
 <a href="{{path('app_change_password')}}" class="ms-3">-changer mon mot de passe</a>
 <a href="{{path('app_list_user')}}" class="ms-3">-Voir tous les utilisateurs</a>
-<a href="{{path('app_annonce_all')}}" class="ms-3">-Voir toutes les annonce</a>
-
+<a class="ms-3">-Voir toutes les annonce</a>
 </p>
 
 {% endblock %}

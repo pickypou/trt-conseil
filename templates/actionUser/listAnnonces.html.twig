@@ -6,6 +6,7 @@
         {% for annonce in annonces %}
             <div class="card ms-5 mb-3" style="width: 18rem;">
                 <ul class="list-groupe list-group-flush ">
+                 <li class="list-group-item ">numéro d'annonce a renseigner: {{ annonce.id }}
                     <h5 class="crad-subtitle list-group-item text-center">{{ annonce.job }}</h5>
                     <li class="list-group-item ">
                         {{ annonce.content }}

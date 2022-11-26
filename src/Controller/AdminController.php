@@ -15,22 +15,24 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin'),IsGranted('ROLE_ADMIN')]
 class AdminController extends AbstractController
 {
+
     //list users
     #[Route('/list/{page?1}/{nbre?12}', name: 'app_list_user')]
     public function index(ManagerRegistry $doctrine, $page, $nbre): Response
     {
         $repository = $doctrine->getRepository(User::class);
-        $users = $repository->findAll();
-        $nbuser =  $repository->count([]);
-        $nbrePage = ceil($nbuser / $nbre);
-        $users = $repository->findBy([], [], $nbre, ($page - 1) * $nbre);
+        $nbusers = $repository->count([]);
+      
+        $nbrePage = ceil($nbusers / $nbre);
 
+        $users = $repository->findBy([], [], $nbre, ($page - 1) * $nbre);
+       
         return $this->render('admin/listUsers.html.twig', [
             'users' => $users,
             'isPaginated' => true,
-            'nbrePage'=>$nbrePage,
-            'page'=>$page,
-            'nbre'=>$nbre
+            'nbrePage' => $nbrePage,
+            'page' => $page,
+            'nbre' => $nbre
         ]);
     }
 
@@ -48,43 +50,28 @@ class AdminController extends AbstractController
         ]);
 }
     //delete_user
-    #[Route('/delete', name: 'app_delete_user')]
-    public function delete_user(User $user = null,
-     ManagerRegistry $doctrine
-     ): RedirectResponse
+    #[Route('/delete/{id}', name: 'app_delete_user')]
+    public function deletePersonne(User $user = null, ManagerRegistry $doctrine): RedirectResponse
     {
-        $anotation = null;
-        //recupérer user
-        if($user){
+        // Récupérer la personne
+        if ($user) {
+            // Si la personne existe => le supprimer et retourner un flashMessage de succés
             $manager = $doctrine->getManager();
-            //ajoute la fonction de supression dans la transaction
+            // Ajoute la fonction de suppression dans la transaction
             $manager->remove($user);
-            //Executer la transaction
+            // Exécuter la transacition
             $manager->flush();
-            $anotation = "L'utilisateur à étét suprimer avec succès";
-
-
-        }else {
-            $anotation = "La supression à échouer";
+            $this->addFlash('success', "La personne a été supprimé avec succès");
+        } else {
+            //Sinon  retourner un flashMessage d'erreur
+            $this->addFlash('error', "Personne innexistante");
         }
-
-
         return $this->redirectToRoute('app_list_user');
+    
+
     }
 
-    //list annonce
-    #[Route('/annonces', name: 'app_annonce_all')]
-
-    public function annoncesAlls(ManagerRegistry $doctrine): Response
-    {
-        $repository = $doctrine->getRepository(Annonces::class);
-        $annonces = $repository->findAll();
-
-        return $this->render('admin/listAnnonces.html.twig', [
-            'annonces' => $annonces
-        ]);
-    }
-
+   
 
 
 }

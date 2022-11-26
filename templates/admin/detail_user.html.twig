@@ -8,12 +8,14 @@
             <li class="list-group-item">{{ user.firstname }}</li>
             <li class="list-group-item">{{ user.lastname }}</li>
             <li class="list-group-item">{{ user.email }}</li>
-            <li class="list-group-item">{{ user.cv }}</li>
+            
 <li class="list-group-item">
-            <a href="{{path('app_list_user')}}"><i class="fa-solid fa-list"></i></a>
+            <a href="{{path('app_list_user')}}">
+             <img src="{{asset('assets/img/checklist.png')}}" alt="trash" class="icon">
+            </a>
            
-            <a href="{{path('app_delete_user')}}">
-                       <i class="fa-solid fa-trash-can"></i>
+            <a href="{{path('app_delete_user',{id: user.id})}}">
+                      <img src="{{asset('assets/img/trash.png')}}" alt="trash" class="icon">
                        </a>
 
 
