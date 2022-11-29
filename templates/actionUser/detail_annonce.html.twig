@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+{% block title %}trt-detail-annonce{% endblock %}
+{% block body %}
+<a href="{{path('app_annonces_list')}}">
+<img src="{{asset('assets/img/arrow-left.png')}}" alt="fleche">
+retour à la liste des annonces
+</a>
+    {% block pagetitle %}<h1 class="mt-5 mb-3 font-weight-normal text-center">detail d'une annonce</h1>{% endblock %}
+    <div class="row">
+        <p class="ms-5">
+            numéro d'annonce: {{ annonce.id }}
+        </p>
+        <p class="ms-5">
+        Pour un emploi: 
+             <b>{{ annonce.job }}</b>
+        </p>
+        <p class="text-center">
+            {{ annonce.content }}
+        </p>
+        <p class="ms-5">salaire net/mois: {{annonce.salaire}} €</p>
+        <a href="#" class="btn btn-block btn-info ">Cette annonce m'intéresse</a>
+    </div>
+</div>
+{% endblock %}

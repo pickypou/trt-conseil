@@ -8,14 +8,12 @@
                 <ul class="list-groupe list-group-flush ">
                  <li class="list-group-item ">numéro d'annonce a renseigner: {{ annonce.id }}
                     <h5 class="crad-subtitle list-group-item text-center">{{ annonce.job }}</h5>
-                    <li class="list-group-item ">
-                        {{ annonce.content }}
-                    </li>
+                   
                     <li class="list-group-item">
                       salaire proposer net:<br> {{ annonce.salaire }} €
                     </li>                
                 </ul>
-                <a href="#" class="btn btn-primary ">Cette annonce m'intéresse</a>
+                <a href="{{path('app_detail_annonce', {'id' :annonce.id})}}" class="btn btn-primary ">Lire l'annonce compléte</a>
             </div>
         {% endfor %}
     </div>

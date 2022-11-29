@@ -21,4 +21,17 @@ class ActionUserController extends AbstractController
         ] );
        
     }
+
+    //detail annonce
+    #[Route('/detail/{id<\d+>}', name: 'app_detail_annonce')]
+    public function detail_annonce(ManagerRegistry $doctrine, $id): Response
+    {
+        $repository = $doctrine->getRepository(Annonces::class);
+        $annonce = $repository->find($id);
+
+        return $this->render('actionUser/detail_annonce.html.twig', [
+            'annonce' => $annonce,
+
+        ]);
+    }
 }
